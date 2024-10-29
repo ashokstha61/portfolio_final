@@ -562,8 +562,8 @@
         a project, or simply want to connect, feel free to reach out. You can
         contact me
       </p>
-
-      <form
+      <form id="contactForm" method="POST" onsubmit="submitForm(event)">
+        <!-- <form
         action="https://api.web3forms.com/submit"
         method="POST"
         class="max-w-2xl mx-auto"
@@ -572,7 +572,7 @@
           type="hidden"
           name="access_key"
           value="37a22e16-f6b8-4833-a271-998f8a8d9f5d"
-        />
+        /> -->
 
         <div class="grid grid-cols-auto gap-6 mt-10 mb-8">
           <input
@@ -596,8 +596,6 @@
           placeholder="Enter your message"
           name="message"
           class="w-full p-4 outline-none border-[0.5px] border-gray-400 rounded-md bg-white mb-6 dark:bg-darkHover/30 dark:border-white/90"
-          name=""
-          id=""
           required
         ></textarea>
 
@@ -668,5 +666,23 @@
     </div>
 
     <script src="./script.js"></script>
+    <script>
+      async function submitForm(event) {
+        event.preventDefault();
+        const formData = {
+          name: event.target.name.value,
+          email: event.target.email.value,
+          message: event.target.message.value
+        };
+
+        const response = await fetch("/.netlify/functions/sendEmail", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+        alert(result.message || "Message sent!");
+      }
+    </script>
   </body>
 </html>
