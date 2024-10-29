@@ -4,7 +4,7 @@ exports.handler = async (event, context) => {
   const { name, email, message } = JSON.parse(event.body);
 
   const transporter = nodemailer.createTransport({
-    host: 'smtp.example.com', // Replace with your SMTP server
+    host: 'smtp.gmail.com', // Replace with your SMTP server
     port: 465,                // Replace with your SMTP server's port
     secure: true,
     auth: {
